@@ -1,0 +1,38 @@
+name: cread
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=2.19.4 <3.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  #state management
+  provider: ^6.0.5
+  mobx: ^2.1.4
+  flutter_mobx: ^2.0.6+5
+
+  #translation
+  easy_localization: ^3.0.1
+  #animated json
+  lottie: ^2.3.1
+  #fonts
+  google_fonts: ^4.0.3
+  
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  build_runner: ^2.3.2
+  mobx_codegen: ^2.1.1
+
+flutter:
+  uses-material-design: true
+  #assets which used in app
+  assets:
+  - assets/lang/
+  - assets/lottie/

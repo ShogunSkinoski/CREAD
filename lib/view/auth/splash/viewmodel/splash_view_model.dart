@@ -1,0 +1,53 @@
+import 'package:cread/view/auth/splash/model/splash_model.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
+
+import '../../../../core/base/model/base_view_model.dart';
+import '../../../../core/constants/app/app_path.dart';
+import '../../../../core/init/lang/locale_keys.g.dart';
+part 'splash_view_model.g.dart';
+
+class SplashViewModel = _SplashViewModelBase with _$SplashViewModel;
+
+abstract class _SplashViewModelBase with Store, BaseViewModel {
+  List<SplashContent> splashItems = [];
+  late PageController pageController;
+  @observable
+  int currentPage = 0;
+  @action
+  void setCurrentPage(int value) => currentPage = value;
+  @action
+  void nextPage() {
+    if (currentPage < splashItems.length - 1) {
+      pageController.nextPage(
+          duration: const Duration(milliseconds: 1000), curve: Curves.easeIn);
+    }
+  }
+
+  @override
+  void init() {
+    splashItems = [
+      SplashContent(
+        title: LocaleKeys.welcome.tr(),
+        description: LocaleKeys.first_splash_description.tr(),
+        splashPath: AppPath.WelcomeLottie,
+      ),
+      SplashContent(
+        title: 'title2',
+        description: 'description2',
+        splashPath: AppPath.ExplainingLottie,
+      ),
+      SplashContent(
+        title: 'title3',
+        description: 'description3',
+        splashPath: AppPath.LoginLottie,
+      ),
+    ];
+  }
+
+  @override
+  void dispose() {}
+  @override
+  void setContext(BuildContext context) => ctx = context;
+}
