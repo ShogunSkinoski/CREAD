@@ -1,3 +1,4 @@
+import 'package:cread/core/init/navigation/navigation.dart';
 import 'package:cread/view/auth/splash/model/splash_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:mobx/mobx.dart';
 
 import '../../../../core/base/model/base_view_model.dart';
 import '../../../../core/constants/app/app_path.dart';
+import '../../../../core/constants/app/route_names.dart';
 import '../../../../core/init/lang/locale_keys.g.dart';
 part 'splash_view_model.g.dart';
 
@@ -22,6 +24,8 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
     if (currentPage < splashItems.length - 1) {
       pageController.nextPage(
           duration: const Duration(milliseconds: 1000), curve: Curves.easeIn);
+    } else {
+      navigateLoginPage();
     }
   }
 
@@ -34,13 +38,13 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
         splashPath: AppPath.WelcomeLottie,
       ),
       SplashContent(
-        title: 'title2',
-        description: 'description2',
+        title: "",
+        description: LocaleKeys.second_splash_description.tr(),
         splashPath: AppPath.ExplainingLottie,
       ),
       SplashContent(
-        title: 'title3',
-        description: 'description3',
+        title: '',
+        description: LocaleKeys.third_splash_description.tr(),
         splashPath: AppPath.LoginLottie,
       ),
     ];
@@ -50,4 +54,8 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
   void dispose() {}
   @override
   void setContext(BuildContext context) => ctx = context;
+
+  void navigateLoginPage() {
+    NavigationService.instance.navigateToPageClear(path: RouteName.LOGIN);
+  }
 }

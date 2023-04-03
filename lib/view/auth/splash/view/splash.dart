@@ -1,10 +1,12 @@
 import 'package:cread/core/base/view/base_view.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:cread/view/auth/splash/viewmodel/splash_view_model.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import '../../../../feature/widget/Indicator/page_indicator.dart';
 
+//refactor the splash screen later
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
 
@@ -79,11 +81,24 @@ class _SplashViewState extends State<SplashView> {
   }
 
   TextButton nextPageButton(SplashViewModel viewModel) {
+    // create a extension for this
     return TextButton(
+      style: ButtonStyle(
+        fixedSize: MaterialStateProperty.all(Size(150, 50)),
+        backgroundColor: MaterialStateProperty.all(Colors.blue),
+      ),
       onPressed: () {
         viewModel.nextPage();
       },
-      child: Text('Next'),
+      child: Observer(builder: (_) {
+        return Text(
+          viewModel.currentPage == viewModel.splashItems.length - 1
+              // add localization of this texts on translation file
+              ? 'Get Started'
+              : 'Next',
+          style: TextStyle(color: Colors.white, fontSize: 18),
+        );
+      }),
     );
   }
 
