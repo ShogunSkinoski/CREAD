@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:cread/core/constants/app/route_names.dart';
 
 import '../../../view/auth/login/view/login_view.dart';
+import '../../../view/auth/register/view/register_view.dart';
 
 class NavigationRoute {
   NavigationRoute._init();
@@ -15,6 +16,10 @@ class NavigationRoute {
       case RouteName.LOGIN:
         return MaterialPageRoute(
           builder: (context) => LoginView(),
+        );
+      case RouteName.REGISTER:
+        return MaterialPageRoute(
+          builder: (context) => RegisterView(),
         );
       case RouteName.HOME:
         return MaterialPageRoute(
