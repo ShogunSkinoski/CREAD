@@ -1,4 +1,5 @@
 import 'package:cread/view/auth/splash/view/splash.dart';
+import 'package:cread/view/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cread/core/constants/app/route_names.dart';
 
@@ -14,6 +15,10 @@ class NavigationRoute {
       case RouteName.LOGIN:
         return MaterialPageRoute(
           builder: (context) => LoginView(),
+        );
+      case RouteName.HOME:
+        return MaterialPageRoute(
+          builder: (context) => HomeView(),
         );
       default:
         return MaterialPageRoute(
