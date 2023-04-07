@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "81786840540",
+    "project_id": "cread-4fddf",
+    "storage_bucket": "cread-4fddf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:81786840540:android:506b0ea2f215c5a989db19",
+        "android_client_info": {
+          "package_name": "com.example.cread"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "81786840540-c88hua7eumlq7j5m75fsfq70mg5t07fj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBka5_CnuS8H9tI4awFbtip23viSplM49c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "81786840540-c88hua7eumlq7j5m75fsfq70mg5t07fj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
