@@ -48,7 +48,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget buildForm() {
+  Form buildForm() {
     return Form(
       child: Column(
         children: [
@@ -60,6 +60,7 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     buildEmailField(),
                     buildPasswordField(),
+                    buildRegisterButton(),
                   ],
                 ),
               )),
@@ -68,7 +69,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget buildEmailField() {
+  Container buildEmailField() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       width: MediaQuery.of(context).size.width * 0.8,
@@ -89,7 +90,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget buildPasswordField() {
+  Container buildPasswordField() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
       width: MediaQuery.of(context).size.width * 0.8,
@@ -118,7 +119,7 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 
-  Widget buildLoginButton() {
+  Observer buildLoginButton() {
     return Observer(builder: (_) {
       return ElevatedButton(
         onPressed: () {
@@ -127,5 +128,11 @@ class _LoginViewState extends State<LoginView> {
         child: Text('Login'),
       );
     });
+  }
+
+  ElevatedButton buildRegisterButton() {
+    return ElevatedButton(
+        onPressed: () => viewModel.navigateToRegisterPage(),
+        child: const Text('Register'));
   }
 }

@@ -80,4 +80,8 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
   void navigateToHomePage() {
     NavigationService.instance.navigateToPageClear(path: RouteName.HOME);
   }
+
+  void navigateToRegisterPage() {
+    NavigationService.instance.navigateToPage(path: RouteName.REGISTER);
+  }
 }
