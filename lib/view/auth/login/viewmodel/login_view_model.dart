@@ -20,7 +20,7 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
   @observable
   String password = '';
   @observable
-  bool isPasswordVisible = false;
+  bool isPasswordVisible = true;
   @observable
   bool isRememberMe = false;
 
