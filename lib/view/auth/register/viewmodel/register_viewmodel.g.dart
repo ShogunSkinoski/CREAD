@@ -9,6 +9,22 @@ part of 'register_viewmodel.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
+  late final _$isPasswordVisibleAtom =
+      Atom(name: '_RegisterViewModelBase.isPasswordVisible', context: context);
+
+  @override
+  bool get isPasswordVisible {
+    _$isPasswordVisibleAtom.reportRead();
+    return super.isPasswordVisible;
+  }
+
+  @override
+  set isPasswordVisible(bool value) {
+    _$isPasswordVisibleAtom.reportWrite(value, super.isPasswordVisible, () {
+      super.isPasswordVisible = value;
+    });
+  }
+
   late final _$emailAtom =
       Atom(name: '_RegisterViewModelBase.email', context: context);
 
@@ -85,6 +101,17 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
       ActionController(name: '_RegisterViewModelBase', context: context);
 
   @override
+  String? emailError() {
+    final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
+        name: '_RegisterViewModelBase.emailError');
+    try {
+      return super.emailError();
+    } finally {
+      _$_RegisterViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void changeEmail(String email) {
     final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
         name: '_RegisterViewModelBase.changeEmail');
@@ -107,6 +134,17 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
   }
 
   @override
+  void changePasswordAgain(String passwordAgain) {
+    final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
+        name: '_RegisterViewModelBase.changePasswordAgain');
+    try {
+      return super.changePasswordAgain(passwordAgain);
+    } finally {
+      _$_RegisterViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setPasswordAgain(String passwordAgain) {
     final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
         name: '_RegisterViewModelBase.setPasswordAgain');
@@ -118,8 +156,20 @@ mixin _$RegisterViewModel on _RegisterViewModelBase, Store {
   }
 
   @override
+  void setPasswordVisible() {
+    final _$actionInfo = _$_RegisterViewModelBaseActionController.startAction(
+        name: '_RegisterViewModelBase.setPasswordVisible');
+    try {
+      return super.setPasswordVisible();
+    } finally {
+      _$_RegisterViewModelBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+isPasswordVisible: ${isPasswordVisible},
 email: ${email},
 password: ${password},
 passwordAgain: ${passwordAgain},

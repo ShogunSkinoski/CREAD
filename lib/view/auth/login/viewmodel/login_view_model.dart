@@ -1,4 +1,5 @@
 import 'package:cread/core/extension/string_extension.dart';
+import 'package:cread/feature/model/userprofile_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
@@ -55,6 +56,7 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
       if (emailError() == null && password.isNotEmpty) {
         final user = await _loginService.signInWithCredentials(email, password);
         if (user != null) {
+          UserProfile.EMAIL = email;
           navigateToHomePage();
         }
       }
