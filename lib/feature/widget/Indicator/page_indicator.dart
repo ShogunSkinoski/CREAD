@@ -9,7 +9,7 @@ class PageIndicator extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(5),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 50),
         child: CircleAvatar(
           radius: is_selected ? 10 : 5,
           backgroundColor: is_selected ? Colors.blue : Colors.grey,
