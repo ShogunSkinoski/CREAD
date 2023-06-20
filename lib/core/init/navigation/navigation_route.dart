@@ -1,12 +1,15 @@
 import 'package:cread/view/auth/splash/view/splash.dart';
+import 'package:cread/view/book/view/book_details.dart';
 import 'package:cread/view/home/home_view.dart';
-import 'package:cread/view/market/view/market_view.dart';
 import 'package:cread/view/profile/view/profile_view.dart';
+import 'package:cread/view/storage/storage_view.dart';
 import 'package:flutter/material.dart';
 import 'package:cread/core/constants/app/route_names.dart';
 
 import '../../../view/auth/login/view/login_view.dart';
 import '../../../view/auth/register/view/register_view.dart';
+import '../../../view/home/review_view.dart';
+import '../../../view/library/view/library_home_view.dart';
 import '../../../view/settings/view/settings_view.dart';
 
 class NavigationRoute {
@@ -36,9 +39,14 @@ class NavigationRoute {
         return MaterialPageRoute(
           builder: (context) => HomeView(),
         );
-      case RouteName.MARKET:
+
+      case RouteName.STORAGE:
         return MaterialPageRoute(
-          builder: (context) => MarketView(),
+          builder: (context) => DownloadedBooks(),
+        );
+      case RouteName.LIBRARY:
+        return MaterialPageRoute(
+          builder: (context) => LibraryHomeView(),
         );
       case RouteName.PROFILE:
         return MaterialPageRoute(

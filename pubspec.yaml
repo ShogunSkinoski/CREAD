@@ -27,14 +27,37 @@ dependencies:
   firebase_auth: ^4.4.0
   cloud_firestore: ^4.5.0
   firebase_storage: ^11.1.0
-
-  
+  #image picker
+  cached_network_image: ^3.2.3
+  #network
+  dio: ^5.1.2
+  #html parser
+  html: ^0.15.3
+  #text
+  auto_size_text: ^3.0.0
+  #pdf reader
+  flutter_pdfview: ^1.3.1
+  #path provider
+  path_provider: ^2.0.15
+  #permission handler
+  permission_handler: ^10.3.0
+  #nav bar
+  google_nav_bar: ^5.0.6
+  #textfield
+  textfields: ^0.0.3
+  #hive
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  shared_preferences: ^2.1.2
+  #easy search bar
+  easy_search_bar: ^2.5.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
   build_runner: ^2.3.2
   mobx_codegen: ^2.1.1
+  hive_generator: ^2.0.0
 
 flutter:
   uses-material-design: true

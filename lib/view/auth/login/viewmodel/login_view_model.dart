@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 import 'package:cread/view/auth/login/service/login_service.dart';
 import '../../../../core/base/model/base_view_model.dart';
 import '../../../../core/constants/app/route_names.dart';
+import '../../../../core/init/firebase/firestore_repository.dart';
 import '../../../../core/init/navigation/navigation.dart';
 part 'login_view_model.g.dart';
 
@@ -13,6 +14,8 @@ class LoginViewModel = _LoginViewModelBase with _$LoginViewModel;
 
 abstract class _LoginViewModelBase with Store, BaseViewModel {
   LoginService _loginService;
+  FireStoreRepository _fireStoreRepository = FireStoreRepository();
+
   _LoginViewModelBase(this._loginService) {}
   @observable
   String email = '';
@@ -56,7 +59,15 @@ abstract class _LoginViewModelBase with Store, BaseViewModel {
       if (emailError() == null && password.isNotEmpty) {
         final user = await _loginService.signInWithCredentials(email, password);
         if (user != null) {
-          UserProfile.EMAIL = email;
+          //check user in firestore
+          final userDoc = await _fireStoreRepository.instance
+              .collection('users')
+              .doc(user.uid)
+              .get();
+          if (!userDoc.exists) {
+            //add user to firestore
+            await _fireStoreRepository.addUser(user);
+          }
           navigateToHomePage();
         }
       }

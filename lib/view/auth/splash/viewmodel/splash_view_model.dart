@@ -3,6 +3,7 @@ import 'package:cread/view/auth/splash/model/splash_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/base/model/base_view_model.dart';
 import '../../../../core/constants/app/app_path.dart';
@@ -30,7 +31,8 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
   }
 
   @override
-  void init() {
+  void init() async {
+    //get first time
     splashItems = [
       SplashContent(
         title: LocaleKeys.welcome.tr(),
@@ -48,7 +50,16 @@ abstract class _SplashViewModelBase with Store, BaseViewModel {
         splashPath: AppPath.LoginLottie,
       ),
     ];
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isFirstTime = prefs.getBool('first_time') ?? true;
+    if (isFirstTime) {
+      prefs.setBool('first_time', false);
+    } else {
+      navigateLoginPage();
+    }
   }
+
+  initSplashItems() {}
 
   @override
   void dispose() {}

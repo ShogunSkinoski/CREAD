@@ -1,7 +1,7 @@
 import 'package:cread/core/base/view/base_view.dart';
 import 'package:cread/view/home/home_viewmodel/home_viewmodel.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_nav_bar/google_nav_bar.dart';
 import '../../feature/model/userprofile_model.dart';
 import '../../feature/widget/Card/evalution.dart';
 import '../../feature/widget/Drawer/drawer.dart';
@@ -14,12 +14,16 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  HomeViewModel viewModel = HomeViewModel();
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      viewModel: HomeViewModel(),
+      viewModel: viewModel,
       builder: (context, viewModel) => buildScaffold(),
-      onModelReady: (viewModel) {},
+      onModelReady: (viewModel) {
+        viewModel.setContext(context);
+        viewModel.init();
+      },
     );
   }
 
@@ -36,13 +40,36 @@ class _HomeViewState extends State<HomeView> {
   }
 
   buildBody() {
-    return ListView.builder(
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: EvaluationCard(),
-          );
-        });
+    return Column(
+      children: [
+        // get every evaluation from database
+        Expanded(
+          child: FutureBuilder<List<Map<String, dynamic>>>(
+            future: viewModel.getEvaluation(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    if (index == 0) {
+                      return const SizedBox(
+                        height: 1,
+                      );
+                    }
+                    return EvaluationCard(
+                      evaluation: snapshot.data![index],
+                    );
+                  },
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            },
+          ),
+        ),
+      ],
+    );
   }
 }

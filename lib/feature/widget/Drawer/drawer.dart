@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:cread/core/base/view/base_view.dart';
+import 'package:cread/core/init/firebase/firestore_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -16,6 +18,7 @@ class CustomDrawer extends StatefulWidget {
 }
 
 class CustomDrawerState extends State<CustomDrawer> {
+  User? user = FirebaseAuth.instance.currentUser!;
   DrawerViewModel viewModel = DrawerViewModel();
   @override
   Widget build(BuildContext context) {
@@ -51,18 +54,18 @@ class CustomDrawerState extends State<CustomDrawer> {
             leading: const Icon(Icons.home, color: Colors.black),
           ),
           ListTile(
-            title: const Text('Market'),
-            onTap: () {
-              viewModel.navigateToMarketPage();
-            },
-            leading: const Icon(Icons.shopping_cart, color: Colors.black),
-          ),
-          ListTile(
             title: const Text('Library'),
             onTap: () {
-              Navigator.pop(context);
+              viewModel.navigateToLibraryPage();
             },
             leading: const Icon(Icons.book, color: Colors.black),
+          ),
+          ListTile(
+            title: const Text('Storage'),
+            onTap: () {
+              viewModel.navigateToStoragePage();
+            },
+            leading: const Icon(Icons.storage, color: Colors.black),
           ),
           ListTile(
             title: const Text('Profile'),
@@ -105,8 +108,8 @@ class CustomDrawerState extends State<CustomDrawer> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Name'),
-                    Text(UserProfile.EMAIL),
+                    Text(user!.displayName ?? "User Name"),
+                    Text(user!.email ?? "User Email"),
                   ],
                 ),
               ]),

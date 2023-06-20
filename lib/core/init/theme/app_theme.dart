@@ -19,10 +19,35 @@ class AppTheme {
         ),
         colorScheme: darkColorScheme,
         textTheme: GoogleFonts.ralewayTextTheme().copyWith(
-          subtitle2: GoogleFonts.raleway(
+          titleSmall: GoogleFonts.raleway(
             color: darkColorScheme.onBackground,
             fontSize: 16,
             fontWeight: FontWeight.w600,
+          ),
+          titleMedium: GoogleFonts.raleway(
+            color: darkColorScheme.onBackground,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
+          titleLarge: GoogleFonts.raleway(
+            color: darkColorScheme.onBackground,
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+          bodySmall: GoogleFonts.raleway(
+            color: darkColorScheme.onBackground,
+            fontSize: 12,
+            fontWeight: FontWeight.w400,
+          ),
+          bodyMedium: GoogleFonts.raleway(
+            color: darkColorScheme.onBackground,
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          ),
+          bodyLarge: GoogleFonts.raleway(
+            color: darkColorScheme.onBackground,
+            fontSize: 20,
+            fontWeight: FontWeight.w400,
           ),
         ),
         floatingActionButtonTheme:

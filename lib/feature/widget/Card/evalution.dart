@@ -1,15 +1,37 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cread/core/init/firebase/firestore_repository.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/userprofile_model.dart';
 
 class EvaluationCard extends StatefulWidget {
-  const EvaluationCard({super.key});
+  final Map<String, dynamic> evaluation;
+  const EvaluationCard({super.key, required this.evaluation});
 
   @override
   State<EvaluationCard> createState() => _EvaluationCardState();
 }
 
 class _EvaluationCardState extends State<EvaluationCard> {
+  String email = '';
+  String getDateFromTimeStap() {
+    return DateTime.fromMillisecondsSinceEpoch(
+            widget.evaluation['date'].seconds * 1000)
+        .toString();
+  }
+
+  Future<void> getUserEmail() async {
+    FireStoreRepository fireStoreRepository = FireStoreRepository();
+    email = await fireStoreRepository.getUserEmail(widget.evaluation['userId']);
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUserEmail();
+  }
+
   @override
   Widget build(BuildContext context) {
     return EvaluationCard();
@@ -38,65 +60,29 @@ class _EvaluationCardState extends State<EvaluationCard> {
                   ),
                 ),
                 //profile
-                Text(
-                  UserProfile.EMAIL,
-                  style: const TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(color: Colors.black, fontSize: 12),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text: '  ',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: 'Sent a evaluation',
-                          style: TextStyle(color: Colors.blueGrey)),
-                      TextSpan(
-                          text: '  ',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: '1 hour ago',
-                          style: TextStyle(color: Colors.blueGrey))
-                    ],
-                  ),
-                ),
+                AutoSizeText(email,
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold)),
+                Spacer(),
+                AutoSizeText(
+                    getDateFromTimeStap().substring(0, 10) +
+                        ' ' +
+                        getDateFromTimeStap().substring(11, 16),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold)),
+
                 //settings
                 const Icon(Icons.filter_list_sharp, color: Colors.black),
               ],
             ),
-            //chip for evaluation
-            Chip(
-              side: BorderSide(
-                color: Colors.orangeAccent,
-                width: 1,
-                style: BorderStyle.solid,
-              ),
-              elevation: 2,
-              avatar: const CircleAvatar(
-                backgroundColor: Colors.orangeAccent,
-                child: Icon(
-                  Icons.thumb_up,
-                  color: Colors.white,
-                  size: 15,
-                ),
-              ),
-              label: const Text('It was a good book'),
-              backgroundColor: Colors.orangeAccent[100],
-            ),
+
             //text for evaluation
-            Text(
-              'I really liked this book. I think it is a good book for everyone. I recommend it to everyone.',
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            AutoSizeText(widget.evaluation['review'] ?? "No review",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             //image and information of book
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -108,7 +94,7 @@ class _EvaluationCardState extends State<EvaluationCard> {
                   decoration: BoxDecoration(
                     shape: BoxShape.rectangle,
                     image: DecorationImage(
-                      image: NetworkImage(
+                      image: NetworkImage(widget.evaluation['bookCoverUrl'] ??
                           'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'),
                       fit: BoxFit.fill,
                     ),
@@ -120,7 +106,7 @@ class _EvaluationCardState extends State<EvaluationCard> {
                   children: [
                     //book name
                     Text(
-                      'Book Name',
+                      widget.evaluation['bookName'],
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -129,7 +115,7 @@ class _EvaluationCardState extends State<EvaluationCard> {
                     ),
                     //author name
                     Text(
-                      'Author Name',
+                      widget.evaluation['bookAuthor'],
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -138,7 +124,7 @@ class _EvaluationCardState extends State<EvaluationCard> {
                     ),
                     //book type
                     Text(
-                      'Book Type',
+                      widget.evaluation['bookPublisher'],
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -147,7 +133,7 @@ class _EvaluationCardState extends State<EvaluationCard> {
                     ),
                     //book page
                     Text(
-                      'Book Page',
+                      widget.evaluation['bookYear'],
                       style: const TextStyle(
                         color: Colors.black,
                         fontSize: 12,
@@ -158,15 +144,6 @@ class _EvaluationCardState extends State<EvaluationCard> {
                 ),
                 Spacer(flex: 9),
               ],
-            ),
-            //what do you think about this evaluation
-            Text(
-              'What do you think about this evaluation?',
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),
             ),
           ],
         ));

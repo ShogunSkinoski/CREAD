@@ -28,6 +28,16 @@ abstract class _DrawerViewModelBase with Store, BaseViewModel {
         .navigateToPageClear(path: RouteName.MARKET);
   }
 
+  Future<void> navigateToLibraryPage() async {
+    await NavigationService.instance
+        .navigateToPageClear(path: RouteName.LIBRARY);
+  }
+
+  Future<void> navigateToStoragePage() async {
+    await NavigationService.instance
+        .navigateToPageClear(path: RouteName.STORAGE);
+  }
+
   @override
   void setContext(BuildContext context) => ctx = context;
   @override
